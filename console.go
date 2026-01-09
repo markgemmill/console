@@ -11,7 +11,8 @@ type LEVEL int
 var (
 	TRACE LEVEL = 0
 	DEBUG LEVEL = 1
-	INFO  LEVEL = 2
+	WARN  LEVEL = 2
+	INFO  LEVEL = 3
 )
 
 type Console struct {
@@ -34,6 +35,12 @@ func (c *Console) write(msg string, args ...any) {
 
 func (c *Console) Info(msg string, args ...any) {
 	if c.level >= INFO {
+		c.write(msg, args...)
+	}
+}
+
+func (c *Console) Warn(msg string, args ...any) {
+	if c.level >= WARN {
 		c.write(msg, args...)
 	}
 }

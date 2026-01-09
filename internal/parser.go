@@ -53,13 +53,11 @@ func (p *MessageParser) Parse() error {
 		// Add text before the tag (if any)
 		if start > lastEnd {
 			beforeText := input[lastEnd:start]
-			if strings.TrimSpace(beforeText) != "" {
-				p.addTextSegment(TextSegment{
-					Text:    beforeText,
-					TagName: "",
-					IsTag:   false,
-				})
-			}
+			p.addTextSegment(TextSegment{
+				Text:    beforeText,
+				TagName: "",
+				IsTag:   false,
+			})
 		}
 
 		// Add the tagged content

@@ -74,9 +74,19 @@ var testData = []ParseTestData{
 		"DO: %s\n",
 	),
 	NewParseTestData(
+		"[green]OK[/green] [yellow]%s[/yellow]\n",
+		"<green>OK</green> <yellow>%s</yellow>\n",
+		"OK %s\n",
+	),
+	NewParseTestData(
 		"",
 		"",
 		"",
+	),
+	NewParseTestData(
+		"     [yellow]right justified[/yellow] [green]%s[/green]\n",
+		"     <yellow>right justified</yellow> <green>%s</green>\n",
+		"     right justified %s\n",
 	),
 }
 
@@ -91,4 +101,21 @@ func TestParsing(t *testing.T) {
 		assert.Equal(t, data.ExpectedTagged, parser.TaggedString())
 		assert.Equal(t, data.ExpectedRaw, parser.RawString())
 	}
+}
+
+func TestParsingDetails(t *testing.T) {
+	msg := "    [yellow]name[/yellow]  [green]of the[/green]  [magenta]rose[/magenta] !"
+	parser := NewMessageParser(msg)
+	err := parser.Parse()
+
+	assert.Nil(t, err)
+
+	assert.Equal(t, 7, len(parser.segments))
+	assert.Equal(t, "    ", parser.segments[0].Text)
+	assert.Equal(t, "name", parser.segments[1].Text)
+	assert.Equal(t, "  ", parser.segments[2].Text)
+	assert.Equal(t, "of the", parser.segments[3].Text)
+	assert.Equal(t, "  ", parser.segments[4].Text)
+	assert.Equal(t, "rose", parser.segments[5].Text)
+	assert.Equal(t, " !", parser.segments[6].Text)
 }

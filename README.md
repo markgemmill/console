@@ -1,4 +1,4 @@
-### console 
+# console
 
 A very basic terminal printer that allows for inline colorization
 and output levels.
@@ -16,7 +16,6 @@ csl.Trace("this wont print")
 
 csl.SetLevel(console.TRACE)
 csl.Trace("unless the level is set to trace.")
+```
 
-```
-```
 ```
