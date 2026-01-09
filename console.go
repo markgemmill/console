@@ -19,6 +19,10 @@ type Console struct {
 	level LEVEL
 }
 
+func (c *Console) Level() LEVEL {
+	return c.level
+}
+
 func (c *Console) SetLevel(level LEVEL) {
 	c.level = level
 }
